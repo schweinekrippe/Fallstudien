@@ -1,7 +1,5 @@
-# Fallstudien
+﻿# Fallstudien
 Robuste Optimalsteuerung
 
-Ich habe einen weg gefunden, wie man hier bilder einfügen kann:
-![rendered_dodge](https://cloud.githubusercontent.com/assets/9395161/7239201/40ecb3f8-e7a8-11e4-91df-88c387c71608.JPG)
-
-das Bild einfach in den Kommentar ziehen. Dann wird es hochgeladen und erscheint als link. Den kann man dann einfach kopieren.
+Damit ihr euch mit Github vertraut machen könnt, habe ich einen Testbranch angelegt und dort auch eine Datei rein gelegt.
+Dieser Branch ist dafür gedacht, dass ihr einfach mal Sachen ändert, und irgendwie rumspielt, damit es später keine Probleme gibt, wenn es darauf ankommt.
