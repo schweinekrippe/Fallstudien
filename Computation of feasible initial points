@@ -1,0 +1,7 @@
+Da wir unser Problem auf die Form eines nichtlinearen Optimierungsproblems gebracht haben, können wir einfach der MATLAB Empfehlung für die Berechnung von Startpunkten folgen (http://de.mathworks.com/help/optim/ug/when-the-solver-fails.html#br44i73) 
+
+In Kurzform:
+
+0. Wähle Startpunkt, der zulässig ist für die Boxschranken (alternativ: Wähle einen zufälligen Punkt und gehe zu 1. mit linprog anstelle von fmincon)
+1. Löse z0 = fmincon(@(z) 0, constraints, options)
+OUTPUT: z0 ist zulässig
