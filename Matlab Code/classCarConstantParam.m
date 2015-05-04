@@ -22,7 +22,8 @@ classdef classCarConstantParam < handle
         end
         
         function a = a_max(obj,v)
-            a = obj.g*0.2500*(-5/3e-6*v.^4+0.229167e-3*v.^3-0.01033333*v.^2+0.132083*v+1);
+            %a = obj.g*0.2500*(-5/3e-6*v.^4+0.229167e-3*v.^3-0.01033333*v.^2+0.132083*v+1);
+            a = obj.g*0.25*(-1.666667e-6*v.^4 + 0.229167e-3*v.^3 - 0.01033333*v.^2 + 0.132083*v + 1);
         end
         
         function f = F_A(obj,v)

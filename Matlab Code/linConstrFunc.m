@@ -2,12 +2,12 @@ function [Aineq,bineq,Aeq,beq] = linConstrFunc
 
 cOP = classOptimParam();    % constant Optimization Prameters
 cCCP = classCarConstantParam(); % constant Car Parameters
-n = cOP.n;
+n = cOP.n+1;
 
 % inequality constraints matrix for acceleration constraints Mwh
 % inequalities u_1 >= 0
 Aineq1 = diag(repmat([1 0],1,n));
-Aineq1 = Aineq1([1:2:2*n],:);
+Aineq1 = Aineq1([1:2:2*n-1],:);
 Aineq1 = [zeros(n,2*n),Aineq1];
 Aineq1 = -Aineq1;
 bineq1 = repmat(cCCP.Mwh_min,n,1);
@@ -15,15 +15,14 @@ bineq1 = repmat(cCCP.Mwh_min,n,1);
 % inequality constraints matrix for decelaration constraints Fb
 % first n rows inequalities u_2 >= 0
 % second n rows inequalities u_2 <= Fb_max
-Aineq2 = diag(repmat([0 1],1,n));
-Aineq2 = Aineq2([2:2:2*n],:);
-Aineq2 = [zeros(n,2*n),Aineq2];
-Aineq2 = [-Aineq2;Aineq2];
-bineq2 = [repmat(cCCP.Fb_min,n,1);repmat(cCCP.Fb_max,n,1)];
+Aineq = diag(repmat([0 1],1,n));
+Aineq = Aineq([2:2:2*n],:);
+Aineq = [zeros(n,2*n),Aineq];
+Aineq = [-Aineq;Aineq];
+bineq = [cCCP.Fb_min*ones(n,1);cCCP.Fb_max*ones(n,1)];
 
-% combine the acceleration and deceleration inequality constraints
-Aineq = [Aineq1;Aineq2];
-bineq = [bineq1;bineq2];
+Aineq = [Aineq1;Aineq];
+bineq = [bineq1;bineq];
 
 % equality matrix
 Aeq = zeros(3,4*n);

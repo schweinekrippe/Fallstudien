@@ -3,8 +3,9 @@ close all; clc
 cOP = classOptimParam();    % constant Optimization Prameters
 cCCP = classCarConstantParam(); % constant Car Parameters
 
-n = cOP.n;      % number of intervals
+n = cOP.n+1;      % number of intervals
 tf = cOP.tf;    % time to run from 0 to tf
+h = cOP.tf/cOP.n;
 
 x = zeros(2*n,1);   % x = [y;v] y: Position v: velocity
 u = zeros(2*n,1);   % u = [Mwh;Fb]  Mwh: acceleration   Fb: deceleration
@@ -14,21 +15,24 @@ z = [x;u];
 
 z0 = rand(4*n,1);   % random initial vector
 % approximating the initial vector
-z0(2) = 0;
-z0(2*n) = 0;
+z0(1) = 0;              % x_0 = 0
+z0(2) = 0;              % v_0 = 0
+z0(2*n) = 0;            % v_n = 0
+z0(2*n+2:2:4*n) = 0;    % Fb_i = 0 
 
 % Optimization parameters
 options                 = optimoptions('fmincon');
-options.Algorithm       = 'sqp';
+options.Algorithm       = 'interior-point';
 options.Display         = 'iter';
+options.MaxFunEvals     = 6000;
 
-%z0 = fmincon(@(z) 0, z0,Aineq,bineq,Aeq,beq,[],[],@constrFunc,options);
-min = fmincon(@costFunc,z0,Aineq,bineq,Aeq,beq,[],[],@nonlinConstrFunc,options);
+z0 = fmincon(@(z) 0, z0,Aineq,bineq,Aeq,beq,[],[],@nonlinConstrFunc,options);
+zMin = fmincon(@costFunc,z0,Aineq,bineq,Aeq,beq,[],[],@nonlinConstrFunc,options);
 
 figure
 subplot(2,1,1)
-plot(min(1:2:2*n-1))
+plot(0:h:tf,zMin(1:2:2*n-1))
 title('Solution position y')
 subplot(2,1,2)
-plot(min(2:2:2*n))
+plot(0:h:tf,zMin(2:2:2*n))
 title('Solution velocity v')

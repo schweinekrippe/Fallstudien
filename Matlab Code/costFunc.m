@@ -1,7 +1,7 @@
 function f = costFunc(z)
 cOP = classOptimParam();        % constant Optimization Prameters
-n = cOP.n;
-h = cOP.tf/n;
+h = cOP.tf/cOP.n;
+n = cOP.n+1;
 
 cCCP = classCarConstantParam(); % constant Car Parameters
 x = z(1:2*n);                   % x = [y0;v0;...;yn;vn]
